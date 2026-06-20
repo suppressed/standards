@@ -1,0 +1,210 @@
+---
+title: 'Security'
+label: 'Security'
+description: 'Security practices for infrastructure, data protection, access control, monitoring, incident response, vendors, and operational safeguards.'
+publishedAt: 2026-05-01
+dateLabel: 'updated'
+order: 5
+status: 'published'
+---
+
+## *SUPPRESSED* is designed to handle sensitive personal exposure data through a controlled cloud application stack.
+
+This standard describes how SUPPRESSED PTE. LTD. designs, operates, and maintains relevant service controls for the *SUPPRESSED* platform.
+
+The security model is based on zero-trust principles, controlled access, system separation, infrastructure safeguards, monitored operations, and careful handling of customer data.
+
+Zero-trust does not mean that no system, personnel member, contractor, or service provider can ever process customer data. It means access is restricted, verified, limited to appropriate purposes, and governed by security, confidentiality, and operational controls.
+
+No security model can eliminate every risk. These controls are designed to reduce risk, restrict unnecessary access, support accountability, and protect customer data in line with the nature of the services.
+
+## Security model
+
+The platform is designed around the following principles:
+
+- limit access to customer data based on operational need and authorized service purpose;
+- apply least-privilege access controls where appropriate;
+- separate public content, application workflows, authentication, storage, billing, monitoring, and internal operations;
+- protect production systems through managed infrastructure providers;
+- use database-level and application-level access controls where appropriate;
+- monitor service availability and operational events;
+- maintain operational logs and security records where supported;
+- document sub-processors and provider roles;
+- maintain incident response and escalation procedures.
+
+## Data protection
+
+Customer data is processed in systems designed to support secure handling, controlled access, and operational accountability.
+
+Data protection measures include, as applicable to the relevant system, workflow, provider, or processing context:
+
+- encryption in transit where supported;
+- encryption at rest where supported by infrastructure providers;
+- database-level access controls;
+- row-level security policies where applicable;
+- controlled storage permissions;
+- retention and deletion procedures;
+- separation of customer application workflows, billing workflows, public content, authentication, and monitoring systems.
+
+## Access controls
+
+Access to operational systems is restricted based on role, operational need, least-privilege principles, and authorized service purpose.
+
+We do not permit unrestricted internal access to customer data submitted through the services. Human access to customer data is limited to authorized personnel and contractors where reasonably necessary to provide the services, perform suppression workflows, provide support, investigate security or abuse issues, comply with law, enforce agreements, or maintain service integrity.
+
+Access controls include, as applicable to the relevant system, workflow, provider, or processing context:
+
+- authentication controls;
+- role-based access controls;
+- restricted production access;
+- credential management procedures;
+- access review and revocation procedures;
+- audit logs or operational logs where supported.
+
+## Authentication
+
+The platform is designed around passwordless authentication.
+
+Customers authenticate through one-time magic links sent to account email addresses. This reduces reliance on reusable passwords and limits credential exposure.
+
+Authentication controls include, as applicable to the relevant system, workflow, provider, or processing context:
+
+- verified email-based access;
+- session management;
+- account-level access controls;
+- restricted administrative access;
+- credential and secret-management procedures.
+
+Customers remain responsible for securing their email accounts, devices, sessions, and authentication channels.
+
+## Infrastructure security
+
+We use managed cloud and infrastructure providers to support hosting, routing, authentication, storage, database services, monitoring, and application delivery.
+
+Infrastructure safeguards include, as applicable to the relevant system, workflow, provider, or processing context:
+
+- DNS and edge security controls;
+- web application firewall and bot protection;
+- managed hosting infrastructure;
+- managed database and storage infrastructure;
+- preview and production deployment separation;
+- uptime monitoring and incident visibility.
+
+Provider-specific processing roles are described in the Sub-processors standard.
+
+## Payment security
+
+Payments are processed through Stripe.
+
+Full payment card details are handled by Stripe and are not stored by us. Billing records, subscription metadata, invoices, payment status, and related account records may be processed as needed to manage subscriptions, payments, tax, accounting, and customer support.
+
+Payment provider roles are described in the Sub-processors standard.
+
+## Application security
+
+The application is developed and deployed through controlled source-code and release workflows.
+
+Application safeguards include, as applicable to the relevant system, workflow, provider, or processing context:
+
+- controlled source control;
+- reviewed deployment workflows;
+- environment separation;
+- protected environment variables and secrets;
+- dependency review and update processes;
+- separation between preview and production deployments;
+- controlled access to production systems.
+
+## Logging and monitoring
+
+We monitor availability, service status, and operational signals through designated providers and internal procedures.
+
+Where supported by the relevant system or provider, we maintain operational logs, security logs, authentication records, and administrative activity records to support monitoring, investigation, access review, abuse prevention, and incident response.
+
+Logging and monitoring are used to support service operation, security, abuse prevention, troubleshooting, compliance, and accountability.
+
+## Incident response
+
+Incident response measures include, as applicable to the relevant system, workflow, provider, or processing context:
+
+- uptime monitoring;
+- incident detection;
+- internal escalation;
+- investigation and remediation;
+- public status updates for material service events;
+- customer notification where required by law, contract, or applicable data protection obligations.
+
+## Compliance and privacy controls
+
+The platform is designed to support privacy and security obligations that may apply under data protection laws and customer agreements.
+
+Controls include, as applicable to the relevant system, workflow, provider, or processing context:
+
+- documented processing roles;
+- privacy-choice handling;
+- deletion and retention workflows;
+- customer instruction handling;
+- sub-processor documentation;
+- incident notification procedures where required;
+- service-provider and contractor restrictions where applicable;
+- security measures aligned with common control expectations, including access control, encryption, logging, incident response, and vendor review.
+
+## AI and automation controls
+
+AI-assisted workflows may be used to support classification, triage, source analysis, workflow automation, quality control, and suppression operations.
+
+AI-assisted processes are intended to support operational work. They do not replace customer instructions, access controls, legal review where required, or operational oversight.
+
+AI-assisted workflows are configured to process customer data only where reasonably necessary for the relevant service, workflow, security, support, or operational purpose.
+
+Unless a customer expressly agrees otherwise, customer data submitted through the services is not used to train public foundation models.
+
+Third-party AI providers may process customer data only as described in the Sub-processors standard, the Data processing addendum, applicable service configuration, and applicable provider restrictions.
+
+## Vendor and sub-processor review
+
+We use selected third-party providers for infrastructure, hosting, data systems, payments, email, automation, monitoring, and development operations.
+
+Providers are reviewed based on their role, processing purpose, operational importance, and the sensitivity of data they may process.
+
+Providers that process customer data are expected to operate under appropriate confidentiality, security, and processing obligations for their role.
+
+Current provider roles are listed in the Sub-processors standard.
+
+## Customer responsibilities
+
+Customers are responsible for maintaining secure account access and using the services appropriately.
+
+Customer responsibilities include:
+
+- protecting account access and authentication channels;
+- securing email accounts used for authentication;
+- securing devices, browsers, and sessions used to access the services;
+- controlling authorized users;
+- submitting only data necessary for the relevant workflow;
+- keeping account and billing information accurate;
+- notifying us of suspected unauthorized account access;
+- complying with applicable laws when submitting personal data for processing.
+
+## Vulnerability reporting
+
+If you believe you have identified a security vulnerability, contact:
+
+[priv@suppressed.com](mailto:priv@suppressed.com)
+
+Please include:
+
+- a description of the issue;
+- steps to reproduce it;
+- affected URLs, accounts, or systems where relevant;
+- the potential impact;
+- any screenshots or supporting details.
+
+Do not access, modify, delete, exfiltrate, or disrupt data that does not belong to you.
+
+## Related pages
+
+- Technology
+- Sub-processors
+- Privacy
+- Data processing addendum
+- Service level agreement

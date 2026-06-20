@@ -1,0 +1,154 @@
+---
+title: 'Technology'
+label: 'Technology'
+description: 'An overview of the platform architecture, infrastructure providers, data systems, automation layers, and operational design.'
+publishedAt: 2026-06-16
+dateLabel: 'updated'
+order: 7
+status: 'published'
+---
+
+## *SUPPRESSED* is built as a controlled cloud application stack for secure data handling, automation, and operational resilience.
+
+The platform is designed to support privacy operations involving sensitive personal information, recurring workflows, external suppression activity, and customer account management.
+
+This standard describes the core technology and infrastructure used to operate the *SUPPRESSED* platform. It is separate from Sub-processors, which identifies third-party service providers that may process customer or personal data for SUPPRESSED PTE. LTD.
+
+## Technology model
+
+We use a staged technology model.
+
+| Layer | Role |
+|---|---|
+| Cloud infrastructure | Hosting, routing, DNS, security filtering, and deployment workflows |
+| Application layer | Customer interface, account flows, service workflows, and internal tooling |
+| Data layer | Structured records, authentication, permissions, storage, and operational state |
+| Automation layer | Scheduled workflows, suppression processes, classification, and background jobs |
+| Monitoring layer | Availability monitoring, incident visibility, and service status communications |
+
+## Infrastructure
+
+| Component | Provider | Purpose |
+|---|---|---|
+| DNS | Cloudflare | Domain name resolution and DNS management |
+| Web application firewall | Cloudflare | Request filtering, bot protection, and perimeter security |
+| Turnstile | Cloudflare | Bot and abuse protection |
+| Edge routing | Cloudflare | Traffic routing and network-layer protection |
+| Hosting | Vercel | Next.js hosting for preview and production deployments |
+| Deployments | Vercel | Build, preview, and production deployment workflows |
+
+## Source control and deployments
+
+| Component | Provider | Purpose |
+|---|---|---|
+| Primary repository | GitLab | Primary source control and development workflow |
+| Mirror repository | GitHub | Repository mirror, integration target, and deployment support |
+| Public content repository | GitHub | Public legal, trust, changelog, and content source files |
+| Preview deployments | Vercel | Isolated preview environments for review before production |
+| Production deployments | Vercel | Production release workflow for the web application |
+
+## Application stack
+
+| Component | Technology | Purpose |
+|---|---|---|
+| Web framework | Next.js | Application routing, rendering, metadata, and server-side application structure |
+| UI runtime | React | Component model and interface rendering |
+| Language | TypeScript | Type-safe application development |
+| Routing model | Next.js App Router | Application routes, layouts, metadata, and server components |
+| Styling | Tailwind CSS | Interface styling and design system implementation |
+
+## Data layer and authentication
+
+| Component | Provider | Purpose |
+|---|---|---|
+| Database | Supabase Postgres | Primary relational database |
+| Row Level Security | Supabase / Postgres | Database-level access control |
+| Authentication | Supabase Auth | Magic link authentication and session management |
+| Storage | Supabase Storage | Primary application and user file storage |
+| Backend functions | Supabase Edge Functions | Server-side application workflows |
+| Scheduling | Supabase Cron | Scheduled jobs and recurring workflows |
+| Queues | Postgres queues | Initial background processing |
+
+## Storage
+
+| Component | Provider | Purpose |
+|---|---|---|
+| Primary storage | Supabase Storage | User and application files |
+| Archive storage | Cloudflare R2 | Object storage, archive storage, uploaded files, suppression evidence, validation artifacts, and operational records |
+
+## Payments and finance
+
+| Component | Provider | Purpose |
+|---|---|---|
+| Billing | Stripe | Subscriptions, invoices, payment processing, and billing records |
+| Financial operations | Airwallex | Foreign exchange, accounts, and financial operations |
+
+## Email
+
+| Component | Provider | Purpose |
+|---|---|---|
+| Internal communications | Proton | Business email and internal communications |
+| Transactional email | Resend | Transactional service email delivery |
+
+## AI and automation
+
+| Component | Provider | Purpose |
+|---|---|---|
+| AI workflows | OpenAI / Anthropic | AI-assisted workflows, classification, automation, triage, source analysis, quality control, and suppression support |
+
+We use AI systems to support operational workflows. AI-assisted processes are designed to support classification, triage, source analysis, workflow automation, quality control, and repeatable suppression work.
+
+AI-assisted workflows do not replace customer instructions, access controls, legal review where required, or operational oversight.
+
+AI-assisted workflows are configured to process customer data only where reasonably necessary for the relevant service, workflow, security, support, or operational purpose.
+
+Unless a customer expressly agrees otherwise, customer data submitted through the services is not used to train public foundation models.
+
+Provider-specific AI processing roles are documented in the Sub-processors standard.
+
+## Workers and queues
+
+We use a staged approach for background work.
+
+| Stage | Technology | Purpose |
+|---|---|---|
+| Initial version | Supabase Cron, Edge Functions, and Postgres queues | Scheduled workflows and background processing |
+| Scale path | Cloudflare Workers and Queues | Higher-volume distributed background processing |
+
+## Monitoring and status
+
+| Component | Provider | Purpose |
+|---|---|---|
+| Public status page | Better Stack | Public service status and incident communications |
+| Uptime monitoring | Better Stack | Availability monitoring and incident detection |
+
+## Operational safeguards
+
+The platform is designed around controlled operational complexity. It separates public content, customer application workflows, authentication, storage, payments, automation, and monitoring across defined systems.
+
+The architecture is intended to support:
+
+- controlled access to customer account data;
+- restricted access to customer data based on operational need and authorized service purpose;
+- database-level permission enforcement;
+- isolated preview and production deployment workflows;
+- structured background processing;
+- service availability monitoring;
+- public incident communications;
+- staged automation as operational volume increases.
+
+The platform does not permit unrestricted internal access to customer data submitted through the services.
+
+## Processing boundaries
+
+The technology stack listed on this page describes the systems used to operate the platform. It does not mean that every provider listed receives every type of customer or personal data.
+
+Provider-specific processing roles are documented separately in the Sub-processors standard.
+
+## Related pages
+
+- Sub-processors
+- Security
+- Privacy
+- Service level agreement
+- Changelog
