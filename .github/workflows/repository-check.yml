@@ -1,0 +1,41 @@
+name: Standards repository check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  repository-check:
+    name: Repository check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required root files
+        shell: bash
+        run: |
+          test -f README.md
+          test -f LICENSE
+          test -f SECURITY.md
+          test -f CODEOWNERS
+
+      - name: Check standards directory
+        shell: bash
+        run: |
+          test -d standards
+          find standards -type f | sort
+
+      - name: Check for private environment files
+        shell: bash
+        run: |
+          if find . -type f \( -name ".env" -o -name ".env.*" -o -name "*.pem" -o -name "*.key" \) | grep -q .; then
+            echo "Private environment, key, or certificate file found."
+            exit 1
+          fi

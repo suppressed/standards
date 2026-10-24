@@ -1,0 +1,12 @@
+# Repository ownership
+
+* @suppressed
+
+# Standards documents
+/standards/ @suppressed
+
+# Public assets
+/assets/ @suppressed
+
+# GitHub configuration
+/.github/ @suppressed
