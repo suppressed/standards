@@ -1,0 +1,14 @@
+# Repository ownership
+* @suppressed
+
+# Standards documents
+/standards/ @suppressed
+
+# Public brand assets
+/brand-assets/ @suppressed
+
+# Trademark records
+/trademark/ @suppressed
+
+# GitHub configuration
+/.github/ @suppressed

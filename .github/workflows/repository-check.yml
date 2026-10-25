@@ -1,0 +1,190 @@
+name: Standards repository check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  repository-check:
+    name: Repository check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required structure
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f README.md
+          test -f LICENSE
+          test -f SECURITY.md
+          test -f CODEOWNERS
+          test -f .prettierignore
+
+          test -d standards
+          test -d brand-assets
+          test -d trademark
+
+          test -f brand-assets/README.md
+          test -f trademark/README.md
+
+      - name: Validate standards
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          import sys
+
+          files = sorted(Path("standards").glob("*.md"))
+
+          if len(files) != 10:
+              print(f"Expected 10 standards; found {len(files)}")
+              sys.exit(1)
+
+          required = {
+              "title",
+              "label",
+              "description",
+              "publishedAt",
+              "dateLabel",
+              "order",
+              "status",
+          }
+
+          orders = []
+
+          for path in files:
+              text = path.read_text(encoding="utf-8")
+
+              match = re.match(
+                  r"^---\n(.*?)\n---(?:\n|$)",
+                  text,
+                  re.DOTALL,
+              )
+
+              if not match:
+                  print(f"{path}: missing or invalid frontmatter")
+                  sys.exit(1)
+
+              fields = {}
+
+              for line in match.group(1).splitlines():
+                  if ":" in line:
+                      key, value = line.split(":", 1)
+                      fields[key.strip()] = value.strip()
+
+              missing = required - fields.keys()
+
+              if missing:
+                  print(
+                      f"{path}: missing fields: "
+                      + ", ".join(sorted(missing))
+                  )
+                  sys.exit(1)
+
+              status = fields["status"].strip("'\"")
+
+              if status != "published":
+                  print(f"{path}: status must be 'published'")
+                  sys.exit(1)
+
+              date_label = fields["dateLabel"].strip("'\"")
+
+              if date_label not in {"effective", "updated"}:
+                  print(
+                      f"{path}: dateLabel must be "
+                      "'effective' or 'updated'"
+                  )
+                  sys.exit(1)
+
+              published_at = fields["publishedAt"].strip("'\"")
+
+              if not re.fullmatch(
+                  r"\d{4}-\d{2}-\d{2}",
+                  published_at,
+              ):
+                  print(
+                      f"{path}: publishedAt must use YYYY-MM-DD"
+                  )
+                  sys.exit(1)
+
+              try:
+                  orders.append(int(fields["order"]))
+              except ValueError:
+                  print(f"{path}: order must be an integer")
+                  sys.exit(1)
+
+          if sorted(orders) != list(range(1, 11)):
+              print(
+                  "Standards order must be exactly 1–10; "
+                  f"found {sorted(orders)}"
+              )
+              sys.exit(1)
+
+          print("Standards valid.")
+
+      - name: Check local Markdown links
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          import sys
+
+          failed = False
+
+          for path in Path(".").rglob("*.md"):
+              text = path.read_text(encoding="utf-8")
+
+              for target in re.findall(
+                  r"\[[^\]]+\]\(([^)]+)\)",
+                  text,
+              ):
+                  if target.startswith(
+                      ("http://", "https://", "mailto:", "#")
+                  ):
+                      continue
+
+                  target = target.split("#", 1)[0]
+
+                  if not target:
+                      continue
+
+                  resolved = (path.parent / target).resolve()
+
+                  if not resolved.exists():
+                      print(
+                          f"{path}: broken local link -> {target}"
+                      )
+                      failed = True
+
+          if failed:
+              sys.exit(1)
+
+          print("Local Markdown links valid.")
+
+      - name: Check for private files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if find . \
+            -path "./.git" -prune -o \
+            -type f \( \
+              -name ".env" -o \
+              -name ".env.*" -o \
+              -name "*.pem" -o \
+              -name "*.key" -o \
+              -name "*.p12" -o \
+              -name "*.pfx" \
+            \) -print | grep -q .; then
+            echo "Private file found."
+            exit 1
+          fi
